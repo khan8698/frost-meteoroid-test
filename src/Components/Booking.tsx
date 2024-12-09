@@ -8,7 +8,7 @@ const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
+    <div className="bg-white rounded-xl border border-gray-300 p-4">
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-lg">{booking.title}</h2>
         <button onClick={toggleCard} className="text-gray-500">

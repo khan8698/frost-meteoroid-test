@@ -1,7 +1,15 @@
 "use client";
-import BookingCard from "@/Components/Booking";
-import { useState } from "react";
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+import BookingCard from "@/components/Booking";
+// import { useState } from "react";
+// import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 const bookings: Booking[] = [
   {
@@ -17,45 +25,57 @@ const bookings: Booking[] = [
 ];
 
 export default function Home() {
-  const [value, setValue] = useState<DateValueType>({
-    startDate: null,
-    endDate: null,
-  });
+  // const [value, setValue] = useState<DateValueType>({
+  //   startDate: null,
+  //   endDate: null,
+  // });
   return (
     <div className="min-h-screen flex">
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="p-4">
         {/* Sidebar */}
         <div className="w-16">
           <button className="text-2xl">☰</button>
         </div>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold">Upcoming Bookings</h1>
-          <button className="text-lg text-blue-600">Find Available Chef</button>
+          <button className="text-lg text-start">Find Available Chef</button>
         </div>
 
         {/* Search and Filters */}
-        <div className="flex gap-4 mb-6">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Search by client name..."
-              className="w-full p-2 rounded-lg border border-gray-300"
-            />
+        <div>
+          <Input
+            className="rounded-xl bg-gray-200 border-gray-300"
+            placeholder="Search by client name..."
+          />
+        </div>
+
+        <div className="w-full flex gap-4 mt-4 mb-6">
+          <div className="w-1/4 flex flex-col">
+            <label className="font-semibold">Sort By:</label>
+            <Select>
+              <SelectTrigger className="rounded-xl">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Sort by:</span>
-            <select className="p-2 rounded-lg border border-gray-300">
-              <option>Event Name</option>
-              <option>Client Name</option>
-            </select>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Select Date:</span>
-            <Datepicker
-              value={value}
-              onChange={(newValue: DateValueType) => setValue(newValue)}
-            />
+          <div className="w-3/4 flex flex-col">
+            <label className="font-semibold">Select Date:</label>
+            <Select>
+              <SelectTrigger className="rounded-xl">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
