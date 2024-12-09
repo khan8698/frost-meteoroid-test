@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,31 +23,27 @@ const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
         <div className="grid">
           <h2 className="font-semibold text-lg truncate">{booking.title}</h2>
         </div>
-        <div className="flex gap-2 shrink-0">
+        <div className="flex gap-1 shrink-0">
           <DropdownMenu>
-            <DropdownMenuTrigger className="bg-gray-200 rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center">
-              ...
+            <DropdownMenuTrigger className="bg-gray-100 relative rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center">
+              <span className="absolute top-0">...</span>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
           </DropdownMenu>
 
           <button
             onClick={toggleCard}
-            className="bg-gray-200 rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center leading-[1]"
+            className="bg-gray-100 rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center font-thin"
           >
-            {isOpen ? "▲" : "▼"}
+            {isOpen ? (
+              <ChevronUp strokeWidth={1.5} width="16px" />
+            ) : (
+              <ChevronDown strokeWidth={1.5} width="16px" />
+            )}
           </button>
         </div>
       </div>
 
-      <div className="mt-2 text-gray-500 text-sm">{booking.date}</div>
+      <div className="text-sm">{booking.date}</div>
 
       <div className="flex gap-2 mt-2">
         {/* Booking Status Tags */}

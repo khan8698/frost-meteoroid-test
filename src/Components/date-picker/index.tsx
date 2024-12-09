@@ -4,10 +4,11 @@ import * as React from "react";
 import { addDays, format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
-
+import Calendar from "@/assets/calendar.svg";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import Image from "next/image";
+// import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
@@ -48,7 +49,8 @@ export function DatePicker({
             ) : (
               <span>Pick a date</span>
             )}
-            <CalendarIcon />
+            <Image className="w-5 h-5 " src={Calendar} width={100} alt="icon" />
+            {/* <CalendarIcon className="text-gray-400" /> */}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
