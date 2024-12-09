@@ -1,7 +1,17 @@
 "use client";
+
 import BookingCard from "@/Components/Booking";
 import { useState } from "react";
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+// import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/date-picker";
 
 const bookings: Booking[] = [
   {
@@ -17,50 +27,54 @@ const bookings: Booking[] = [
 ];
 
 export default function Home() {
-  const [value, setValue] = useState<DateValueType>({
-    startDate: null,
-    endDate: null,
-  });
+  // const [value, setValue] = useState<DateValueType>({
+  //   startDate: null,
+  //   endDate: null,
+  // });
   return (
     <div className="min-h-screen flex">
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4">
         {/* Sidebar */}
         <div className="w-16">
           <button className="text-2xl">☰</button>
         </div>
-        <div className="flex justify-between items-center mb-6">
+
+        <div className="flex justify-between items-center gap-4 mt-4">
           <h1 className="text-2xl font-semibold">Upcoming Bookings</h1>
-          <button className="text-lg text-blue-600">Find Available Chef</button>
+          <button className="text-sm">Find Available Chef</button>
         </div>
 
         {/* Search and Filters */}
-        <div className="flex gap-4 mb-6">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Search by client name..."
-              className="w-full p-2 rounded-lg border border-gray-300"
-            />
+        <div className="mt-4">
+          <Input
+            className="rounded-xl bg-gray-200 border-gray-300"
+            placeholder="Search by client name..."
+          />
+        </div>
+
+        <div className="w-full flex gap-4 mt-4">
+          <div className="w-1/4 shrink-0 flex flex-col">
+            <label className="font-semibold text-sm">Sort By:</label>
+            <Select>
+              <SelectTrigger className="mt-1 rounded-xl">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="event">Event</SelectItem>
+                <SelectItem value="event">Event</SelectItem>
+                <SelectItem value="event">Event</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Sort by:</span>
-            <select className="p-2 rounded-lg border border-gray-300">
-              <option>Event Name</option>
-              <option>Client Name</option>
-            </select>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Select Date:</span>
-            <Datepicker
-              value={value}
-              onChange={(newValue: DateValueType) => setValue(newValue)}
-            />
+          <div className="w-full flex flex-col">
+            <label className="font-semibold text-sm mb-1">Select Date</label>
+            <DatePicker />
           </div>
         </div>
 
         {/* Booking List */}
-        <div className="space-y-4">
+        <div className="mt-4 space-y-4">
           {bookings.map((booking, index) => (
             <BookingCard key={index} booking={booking} />
           ))}

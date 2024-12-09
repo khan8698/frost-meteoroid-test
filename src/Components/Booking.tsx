@@ -1,4 +1,13 @@
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,46 +17,79 @@ const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-lg">{booking.title}</h2>
-        <button onClick={toggleCard} className="text-gray-500">
-          {isOpen ? "▲" : "▼"}
-        </button>
+    <div className="w-full bg-white rounded-xl border border-gray-300 p-4">
+      <div className="flex justify-between items-center gap-2">
+        <div className="grid">
+          <h2 className="font-semibold text-lg truncate">{booking.title}</h2>
+        </div>
+        <div className="flex gap-2 shrink-0">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="bg-gray-200 rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center">
+              ...
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <button
+            onClick={toggleCard}
+            className="bg-gray-200 rounded-md w-8 h-8 border border-gray-300 flex items-center justify-center leading-[1]"
+          >
+            {isOpen ? "▲" : "▼"}
+          </button>
+        </div>
       </div>
-      <div className="text-gray-500 text-sm">{booking.date}</div>
-      <div className="flex gap-4 mt-2">
+
+      <div className="mt-2 text-gray-500 text-sm">{booking.date}</div>
+
+      <div className="flex gap-2 mt-2">
         {/* Booking Status Tags */}
-        <span
-          className={`text-sm px-2 py-1 rounded-full ${
+
+        <Badge
+          className={` px-2 py-1 rounded-lg ${
             booking.status === "canceled"
-              ? "bg-red-100 text-red-600"
+              ? "bg-red-100 text-black border border-red-200"
               : booking.status === "scheduled"
               ? "bg-purple-100 text-purple-600"
               : "bg-gray-100 text-gray-600"
           }`}
         >
           {booking.status}
-        </span>
-        <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded-full">
-          Menu Confirmed
-        </span>
+        </Badge>
+        <Badge
+          className="font-bold bg-gray-100 border border-gray-200 rounded-lg"
+          variant="outline"
+        >
+          menu confirmed
+        </Badge>
       </div>
 
       {isOpen && (
-        <div className="mt-4 text-sm">
-          <p>
-            <strong>Client Name:</strong> {booking.clientName}
-          </p>
-          <p>
-            <strong>Chef Name:</strong> {booking.chefName}
-          </p>
-          <p>
-            <strong>Duration:</strong> {booking.duration}
-          </p>
-          <p>
-            <strong>Chef Payout:</strong> {booking.payout}
-          </p>
+        <div className="mt-4 text-sm p-4 bg-gray-100 rounded-lg flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <span>Client Name</span>
+            <span className="font-semibold">{booking.clientName}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Chef Name</span>
+            <span className="font-semibold">{booking.chefName}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Duration</span>
+            <span className="font-semibold">{booking.duration}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Chef Payout</span>
+            <span className="font-semibold px-3 border border-gray-200 rounded-lg">
+              {booking.payout}
+            </span>
+          </div>
         </div>
       )}
     </div>
